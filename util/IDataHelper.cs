@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace University.util
 {
-    internal interface IDataSerivce<T>
+    internal interface IDataHelper<T>
     {
+        void Clean();
         T Read();
         void Write(T objectToWrite);
     }

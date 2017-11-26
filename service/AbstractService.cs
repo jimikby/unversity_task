@@ -9,10 +9,11 @@ using University.util;
 
 namespace University.service
 {
-    internal class AbstractService<T> : IService<T> where T : IEntity
+    internal abstract class AbstractService<T> : IService<T> where T : IEntity
     {
         protected IRepository<T> Repository { get; }
-        public AbstractService(IRepository<T> repository)
+
+        protected AbstractService(IRepository<T> repository)
         {
             Repository = repository;
         }

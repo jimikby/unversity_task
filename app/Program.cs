@@ -12,9 +12,9 @@ namespace University.app
     {
         static void Main(string[] args)
         {
-            var studentService = new StudentService(new StudentRepository(new JsonDataSerivce<List<Student>>("D:\\student.json")));
-            var groupService = new GroupService(new GroupRepository(new JsonDataSerivce<List<Group>>("D:\\group.json")));
-            var facultyService = new FacultyService(new FacultyRepository(new JsonDataSerivce<List<Faculty>>("D:\\faculty.json")));
+            var studentService = new StudentService(new StudentRepository(new BinaryDataHepler<List<Student>>("student.bin", true)));
+            var groupService = new GroupService(new GroupRepository(new JsonDataHepler<List<Group>>("group.json", true)));
+            var facultyService = new FacultyService(new FacultyRepository(new JsonDataHepler<List<Faculty>>("faculty.json", true)));
 
             studentService.Create(new Student("Dzmitry", "Talkachou", 55001));
             studentService.Create(new Student("Akesei", "Petrenko", 55002));
@@ -29,9 +29,22 @@ namespace University.app
             Debug.WriteLine(count);
             var names = studentService.GetAllNames();
             foreach (var n in names)
+            {
                 Debug.WriteLine(n);
+            }
             groupService.Create(new Group(55, students));
+            var studentsByNameFromGroup = groupService.FindStudent("Svetlana", "Malinkina");
+            foreach (var s in studentsByNameFromGroup)
+            {
+                Debug.WriteLine(s.FirstName + " " + s.SecondName + " id:" + s.Uid);
+            }
+
             facultyService.Create(new Faculty("FKSIS", groupService.Read()));
+            var studentsByNameFromFaculty = facultyService.FindStudent("Svetlana", "Malinkina");
+            foreach (var s in studentsByNameFromFaculty)
+            {
+                Debug.WriteLine(s.FirstName + " " + s.SecondName + " id:" + s.Uid);
+            }
         }
     }
 }

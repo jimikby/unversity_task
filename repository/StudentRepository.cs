@@ -8,25 +8,25 @@ using University.util;
 
 namespace University.repository
 {
-    internal class StudentRepository : AbstractRepository<Student>
+    internal class StudentRepository : AbstractRepository<Student> , IStudentRepository
     {
-        public StudentRepository(IDataSerivce<List<Student>> dataSerivce) : base(dataSerivce)
+        public StudentRepository(IDataHelper<List<Student>> dataHepler) : base(dataHepler)
         {
         }
 
         public List<Student> SortBySecondName()
         {
-            return DataSerivce.Read().OrderBy(student => student.SecondName).ToList();
+            return DataHelper.Read().OrderBy(student => student.SecondName).ToList();
         }
 
         public int CountStudentsByFirstName(string name)
         {
-            return DataSerivce.Read().Count(student => student.FirstName.Contains(name));
+            return DataHelper.Read().Count(student => student.FirstName.Contains(name));
         }
 
         public List<string> GetAllNames()
         {
-            return (from student in DataSerivce.Read() select student.FirstName + " " + student.SecondName).ToList();
+            return (from student in DataHelper.Read() select student.FirstName + " " + student.SecondName).ToList();
         }
     }
 }

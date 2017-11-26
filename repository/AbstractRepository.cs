@@ -9,18 +9,19 @@ using University.util;
 
 namespace University.repository
 {
-    internal class AbstractRepository<T> : IRepository<T> where T : IEntity  
+    internal abstract class AbstractRepository<T> : IRepository<T> where T : IEntity  
     {
 
-        protected IDataSerivce<List<T>> DataSerivce { get; }
-        public AbstractRepository(IDataSerivce<List<T>> dataSerivce)
+        protected IDataHelper<List<T>> DataHelper { get; }
+
+        protected AbstractRepository(IDataHelper<List<T>> dataHepler)
         {
-            DataSerivce = dataSerivce;
+            DataHelper = dataHepler;
         }
 
         public void Create(T t)
         {
-            var ts = DataSerivce.Read() ?? new List<T>();
+            var ts = DataHelper.Read() ?? new List<T>();
             var id = 0;
             if (ts.Count != 0)
             {
@@ -28,30 +29,30 @@ namespace University.repository
             }
             t.Uid = ++id;
             ts.Add(t);
-            DataSerivce.Write(ts);
+            DataHelper.Write(ts);
         }
 
         public List<T> Read()
         {
-            return DataSerivce.Read();
+            return DataHelper.Read();
         }
 
         public void Update(T t, int id)
         {
             t.Uid = id;
-            var ts = DataSerivce.Read();
+            var ts = DataHelper.Read();
             var index = ts.FindIndex(t1 => t1.Uid == id);
             ts[index] = t;
-            DataSerivce.Write(ts);
+            DataHelper.Write(ts);
         }
 
         public bool Delete(int id)
         {
-            var ts = DataSerivce.Read();
+            var ts = DataHelper.Read();
             if (ts.Count == 0) return false;
             var t = ts.FirstOrDefault(t1 => t1.Uid == id);
             ts.Remove(t);
-            DataSerivce.Write(ts);
+            DataHelper.Write(ts);
             return true;
         }
 

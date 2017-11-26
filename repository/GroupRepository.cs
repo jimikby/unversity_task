@@ -8,25 +8,20 @@ using University.util;
 
 namespace University.repository
 {
-    internal class GroupRepository : AbstractRepository<Group>
+    internal class GroupRepository : AbstractRepository<Group> , IGroupRepository
     {
-        public GroupRepository(IDataSerivce<List<Group>> dataSerivce) : base(dataSerivce)
+        public GroupRepository(IDataHelper<List<Group>> dataHepler) : base(dataHepler)
         {
         }
 
-        public static List<Student> Sort()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static List<Student> CountByFirstName()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static List<string> GetAllNames()
-        {
-            throw new NotImplementedException();
+        public List<Student> FindStudent(string firstName, string secondName)
+        { 
+         var selectedStudent = from groups in DataHelper.Read()
+                               from student in groups.Students
+                               where student.FirstName == firstName
+                               where student.SecondName == secondName
+                               select student;
+            return new List<Student>(selectedStudent);
         }
     }
 }

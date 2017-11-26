@@ -9,19 +9,18 @@ using System.Web.Script.Serialization;
 
 namespace University.util
 {
-    internal class JsonDataSerivce<T> : IDataSerivce<T>
+    internal class JsonDataHepler<T> : IDataHelper<T>
     {
         private readonly string _filePath;
-        private readonly JavaScriptSerializer _jsonSerialiser;
-        public JsonDataSerivce(string filePath)
+        public JsonDataHepler(string filePath, bool clean)
         {
-            _jsonSerialiser = new JavaScriptSerializer();
             _filePath = filePath;
+            if (clean || !File.Exists(_filePath)) Clean();
         }
 
         public void Write(T objectToWrite)
         {
-            var contentsToWriteToFile = _jsonSerialiser.Serialize(objectToWrite);
+            var contentsToWriteToFile = new JavaScriptSerializer().Serialize(objectToWrite);
 
             TextWriter writer = null;
             try
@@ -37,7 +36,15 @@ namespace University.util
 
         public T Read()
         {
-            return _jsonSerialiser.Deserialize<T>(File.ReadAllText(_filePath));
+            return new JavaScriptSerializer().Deserialize<T>(File.ReadAllText(_filePath));
+        }
+
+        public void Clean()
+        {
+        if (File.Exists(_filePath)) File.Delete(_filePath);
+        using (File.Create(_filePath))
+        {
+        };
         }
     }
 }

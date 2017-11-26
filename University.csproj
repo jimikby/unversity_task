@@ -67,19 +67,24 @@
     <Compile Include="app\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="repository\AbstractRepository.cs" />
+    <Compile Include="repository\GroupRepository.cs" />
+    <Compile Include="repository\IFacultyRepository.cs" />
+    <Compile Include="repository\IGroupRepository.cs" />
     <Compile Include="repository\IRepository.cs" />
     <Compile Include="repository\FacultyRepository.cs" />
-    <Compile Include="repository\GroupRepository.cs" />
+    <Compile Include="repository\IStudentRepository.cs" />
     <Compile Include="repository\StudentRepository.cs" />
     <Compile Include="service\AbstractService.cs" />
-    <Compile Include="service\GroupService.cs" />
     <Compile Include="service\FacultyService.cs" />
+    <Compile Include="service\GroupService.cs" />
+    <Compile Include="service\IFacultyService.cs" />
+    <Compile Include="service\IGroupService.cs" />
     <Compile Include="service\IService.cs" />
+    <Compile Include="service\IStudentService.cs" />
     <Compile Include="service\StudentService.cs" />
-    <Compile Include="service\UniversitySerivce.cs" />
-    <Compile Include="util\BinaryDataSerivce.cs" />
-    <Compile Include="util\IDataSerivce.cs" />
-    <Compile Include="util\JsonDataSerivce.cs" />
+    <Compile Include="util\BinaryDataHelper.cs" />
+    <Compile Include="util\IDataHelper.cs" />
+    <Compile Include="util\JsonDataHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
