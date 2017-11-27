@@ -82,9 +82,9 @@
     <Compile Include="service\IService.cs" />
     <Compile Include="service\IStudentService.cs" />
     <Compile Include="service\StudentService.cs" />
-    <Compile Include="util\BinaryDataHelper.cs" />
-    <Compile Include="util\IDataHelper.cs" />
-    <Compile Include="util\JsonDataHelper.cs" />
+    <Compile Include="helper\BinaryDataHelper.cs" />
+    <Compile Include="helper\IDataHelper.cs" />
+    <Compile Include="helper\JsonDataHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
