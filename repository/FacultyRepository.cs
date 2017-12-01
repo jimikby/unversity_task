@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using University.entity;
 using University.util;
 
@@ -16,12 +12,12 @@ namespace University.repository
         }
         public List<Student> FindStudent(string firstName, string secondName)
         {
-            var selectedStudent = from faculties in DataHelper.Read()
-                                  from groups in faculties.Groups
-                                  from student in groups.Students
-                                  where student.FirstName == firstName
-                                  where student.SecondName == secondName
-                                  select student;
+            var selectedStudent = DataHelper.Read()
+                .SelectMany(faculties => faculties.Groups, (faculties, groups) => new {faculties, groups})
+                .SelectMany(@t => @t.groups.Students, (@t, student) => new {@t, student})
+                .Where(@t => @t.student.FirstName == firstName)
+                .Where(@t => @t.student.SecondName == secondName)
+                .Select(@t => @t.student);
             return new List<Student>(selectedStudent);
         }
     }

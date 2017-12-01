@@ -8,9 +8,9 @@ using University.util;
 
 namespace University.app
 {
-    internal class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var studentService = new StudentService(new StudentRepository(new BinaryDataHepler<List<Student>>("student.bin", true)));
             var groupService = new GroupService(new GroupRepository(new JsonDataHepler<List<Group>>("group.json", true)));
@@ -30,20 +30,20 @@ namespace University.app
             var names = studentService.GetAllNames();
             foreach (var n in names)
             {
-                Debug.WriteLine(n);
+                Console.WriteLine(n);
             }
             groupService.Create(new Group(55, students));
             var studentsByNameFromGroup = groupService.FindStudent("Svetlana", "Malinkina");
             foreach (var s in studentsByNameFromGroup)
             {
-                Debug.WriteLine(s.FirstName + " " + s.SecondName + " id:" + s.Uid);
+                Console.WriteLine(s.FirstName + " " + s.SecondName + " id:" + s.Uid);
             }
 
             facultyService.Create(new Faculty("FKSIS", groupService.Read()));
             var studentsByNameFromFaculty = facultyService.FindStudent("Svetlana", "Malinkina");
             foreach (var s in studentsByNameFromFaculty)
             {
-                Debug.WriteLine(s.FirstName + " " + s.SecondName + " id:" + s.Uid);
+                Console.WriteLine(s.FirstName + " " + s.SecondName + " id:" + s.Uid);
             }
         }
     }

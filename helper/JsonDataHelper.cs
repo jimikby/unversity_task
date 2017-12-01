@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.IO;
 using System.Web.Script.Serialization;
 
 namespace University.util
@@ -44,7 +38,7 @@ namespace University.util
         if (File.Exists(_filePath)) File.Delete(_filePath);
         using (File.Create(_filePath))
         {
-        };
+        }
         }
     }
 }
